@@ -36,16 +36,6 @@ public class Download {
 
 			Map.Entry entry = (Map.Entry) entries.next();
 			runner = new RunnerThread((URL) entry.getValue(), (String) entry.getKey());
-			while (RunnerThread.activeCount() >= 5) {
-
-				if (count >= 5) {
-					try {
-						RunnerThread.sleep(200);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
 			runner.start();
 			count++;
 			if (!runner.isAlive()) {
