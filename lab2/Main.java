@@ -15,7 +15,8 @@ public class Main {
 //		} catch (Exception e) {
 //			
 //		}
-		dl.downloadOne();
+		//dl.downloadOne();
+		dl.downloadMany();
 	}
 
 }
