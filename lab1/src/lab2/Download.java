@@ -19,10 +19,8 @@ import java.util.regex.Pattern;
 public class Download {
 	private Map<String, URL> map;
 	private Iterator it;
-	private int count;
 
 	public Download(String link) {
-		count = 0;
 		HandleLink handle = new HandleLink(link);
 		map = handle.handle();
 		it = map.entrySet().iterator();
@@ -34,28 +32,24 @@ public class Download {
 
 		while (entries.hasNext()) {
 
-			Map.Entry entry = (Map.Entry) entries.next();
-			runner = new RunnerThread((URL) entry.getValue(), (String) entry.getKey());
-			while (RunnerThread.activeCount() >= 5) {
-
-				if (count >= 5) {
-					try {
-						RunnerThread.sleep(200);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
+			Map.Entry me = (Entry) entries.next();
+			runner = new RunnerThread((URL) me.getValue(), (String) me.getKey());
 			runner.start();
-			count++;
-			if (!runner.isAlive()) {
-				count--;
-			}
+		
 		}
 	}
 
 	public void downloadMany() {
 		Runner runner;
+		Iterator entries = map.entrySet().iterator();
+		
+		while (it.hasNext()){
+			Map.Entry me = (Entry) it.next();
+			runner = new Runner((URL) me.getValue(), (String) me.getKey());
+			Thread thread = new Thread (runner);
+			thread.start();
+		
+		}
 
 	}
 
