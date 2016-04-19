@@ -30,6 +30,12 @@ public class MailWriter extends Thread {
 					line = line + (char) bytes;
 
 				} while (bytes != '\n');
+				if(line.contains("Quit")){
+					System.out.println("RIP");
+					s.close();
+					h.getSocketList().remove(s);
+					return;
+				}
 				mail.setMessage(line);
 				System.out.println(line);
 			}
