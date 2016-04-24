@@ -30,11 +30,14 @@ public class UrlAnalyzer extends HTMLEditorKit.ParserCallback {
 				System.out.println("IM OUT");
 				return;
 			}
+			
 			if(href.contains("mailto:")){
 				stack.addMail(href.substring(7, href.length()));
 				return;
 			}
+			
 			try{
+				
 				URL tmp;
 				if(!href.contains(baseURL.toString())){
 					tmp = new URL(baseURL, href);

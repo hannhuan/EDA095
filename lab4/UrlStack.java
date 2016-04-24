@@ -8,17 +8,22 @@ public class UrlStack {
 	private ArrayList<URL> urls;
 	private ArrayList<String> mails;
 	private ArrayList<URL> visitedUrls;
+	private int linksFound;
+	private int mailsFound;
 
 	public UrlStack() {
 		this.urls = new ArrayList<URL>();
 		this.mails = new ArrayList<String>();
 		this.visitedUrls = new ArrayList<URL>();
+		linksFound = 0;
+		mailsFound = 0;
 	}
 
 	public synchronized void add(URL link) {
 		if (!visitedUrls.contains(link)) {
 			urls.add(link);
 			System.out.println("ADDED: " + link.toString());
+			linksFound += 1;
 		} else {
 			System.out.println("link already visited: " + link.toString());
 		}
@@ -28,6 +33,7 @@ public class UrlStack {
 	public void addMail(String addr){
 		mails.add(addr);
 		System.out.println("MAIL ADDED: " + addr);
+		mailsFound += 1;
 	}
 	
 	public synchronized URL get(){
@@ -38,8 +44,8 @@ public class UrlStack {
 				e.printStackTrace();
 			}
 		}
-		URL tmp =  urls.get(urls.size()-1);
-		urls.remove(urls.size()-1);
+		URL tmp =  urls.get(0);
+		urls.remove(0);
 		visitedUrls.add(tmp);		
 		return tmp;
 	}
@@ -53,7 +59,13 @@ public class UrlStack {
 	}
 	
 	public synchronized int sizeOfFindings(){
-		return urls.size();
+		return linksFound + mailsFound;
+	}
+	
+	public void printStats(){
+		System.out.println("NUMBER OF LINKS VISITED: " + visitedUrls.size());
+		System.out.println("NUMBER OF LINKS FOUND: " + linksFound);
+		System.out.println("NUMBER OF MAIL-LINKS FOUND: " + mailsFound);
 	}
 
 }

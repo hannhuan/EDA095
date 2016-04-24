@@ -11,7 +11,7 @@ import javax.swing.text.html.HTMLEditorKit;
 public class ThreadCrawler extends Thread {
 	
 	private UrlStack stack;
-	private final int MAX_LINKS = 10;
+	private final int MAX_LINKS = 3;
 	
 	public ThreadCrawler(UrlStack stack) {
 		this.stack = stack;
@@ -26,7 +26,7 @@ public class ThreadCrawler extends Thread {
 		
 		
 		
-		while(!stack.isEmpty() && stack.sizeOfFindings() < MAX_LINKS){
+		while(!stack.isEmpty() && stack.size() < MAX_LINKS){
 			URL url = stack.get();
 			System.out.println("ANALYZING: " + url.toString());
 			analyzer.makeBase(url);
@@ -40,6 +40,6 @@ public class ThreadCrawler extends Thread {
 			}
 			
 		}
-		System.out.println("Total places visited: " + stack.size());
+		stack.printStats();
 	}
 }
