@@ -11,7 +11,7 @@ import javax.swing.text.html.HTMLEditorKit;
 public class ThreadCrawler extends Thread {
 	
 	private UrlStack stack;
-	private final int MAX_LINKS = 3;
+	private final int MAX_LINKS = 1;
 	
 	public ThreadCrawler(UrlStack stack) {
 		this.stack = stack;
@@ -40,6 +40,6 @@ public class ThreadCrawler extends Thread {
 			}
 			
 		}
-		stack.printStats();
+		System.out.println("THREAD CLOSED: " + this.getName());
 	}
 }
