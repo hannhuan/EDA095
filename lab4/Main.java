@@ -10,6 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		UrlStack stack = new UrlStack();
 
+		//String startingLink = "http://moodle.eit.se/";
 		String startingLink = "http://cs.lth.se/pierre_nugues/";
 		URL startingUrl;
 		try {
@@ -21,8 +22,9 @@ public class Main {
 
 		stack.add(startingUrl);
 		
-		for (int i = 0; i < numberOfThreads; i++) {
+		for (int i = 0; i < 1; i++) {
 			Thread t = new ThreadCrawler(stack);
+			System.out.println("STARTING");
 			t.start();
 		}
 

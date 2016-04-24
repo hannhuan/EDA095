@@ -18,6 +18,7 @@ public class UrlStack {
 	public synchronized void add(URL link) {
 		if (!visitedUrls.contains(link)) {
 			urls.add(link);
+			System.out.println("ADDED: " + link.toString());
 		} else {
 			System.out.println("link already visited: " + link.toString());
 		}
