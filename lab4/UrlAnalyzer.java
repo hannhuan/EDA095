@@ -30,6 +30,10 @@ public class UrlAnalyzer extends HTMLEditorKit.ParserCallback {
 				System.out.println("IM OUT");
 				return;
 			}
+			if(href.contains("mailto:")){
+				stack.addMail(href.substring(7, href.length()));
+				return;
+			}
 			try{
 				URL tmp;
 				if(!href.contains(baseURL.toString())){
@@ -37,7 +41,8 @@ public class UrlAnalyzer extends HTMLEditorKit.ParserCallback {
 				} else {
 					tmp = new URL(href);
 				}
-				System.out.println("LINK: " + tmp.toString());
+				stack.add(tmp);
+				//System.out.println("LINK: " + tmp.toString());
 			} catch (MalformedURLException e){
 				System.out.println("FEEEEL I HREF: " + href);
 			}
@@ -65,23 +70,23 @@ public class UrlAnalyzer extends HTMLEditorKit.ParserCallback {
 //		}
 //	}
 	
-	public void handleText(char[] data, int pos) {
-
-	}
-	
-	public void handleEndTag(HTML.Tag t, int pos) {
-
-	}
-	
-	public void handleComment(char[] data, int pos) {
-
-	}
-
-	public void handleEndOfLineString(String eol) {
-
-	}
-
-	public void handleError(String errorMsg, int pos) {
-
-	}
+//	public void handleText(char[] data, int pos) {
+//
+//	}
+//	
+//	public void handleEndTag(HTML.Tag t, int pos) {
+//
+//	}
+//	
+//	public void handleComment(char[] data, int pos) {
+//
+//	}
+//
+//	public void handleEndOfLineString(String eol) {
+//
+//	}
+//
+//	public void handleError(String errorMsg, int pos) {
+//
+//	}
 }

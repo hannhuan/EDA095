@@ -6,12 +6,12 @@ import java.util.ArrayList;
 public class UrlStack {
 
 	private ArrayList<URL> urls;
-	private ArrayList<URL> mails;
+	private ArrayList<String> mails;
 	private ArrayList<URL> visitedUrls;
 
 	public UrlStack() {
 		this.urls = new ArrayList<URL>();
-		this.mails = new ArrayList<URL>();
+		this.mails = new ArrayList<String>();
 		this.visitedUrls = new ArrayList<URL>();
 	}
 
@@ -23,6 +23,11 @@ public class UrlStack {
 			System.out.println("link already visited: " + link.toString());
 		}
 		notifyAll(); //wakes waiting threads. 
+	}
+	
+	public void addMail(String addr){
+		mails.add(addr);
+		System.out.println("MAIL ADDED: " + addr);
 	}
 	
 	public synchronized URL get(){
@@ -41,6 +46,14 @@ public class UrlStack {
 	
 	public synchronized boolean isEmpty(){
 		return urls.isEmpty();
+	}
+	
+	public synchronized int size(){
+		return visitedUrls.size();
+	}
+	
+	public synchronized int sizeOfFindings(){
+		return urls.size();
 	}
 
 }
